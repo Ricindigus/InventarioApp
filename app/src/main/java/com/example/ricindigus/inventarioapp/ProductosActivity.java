@@ -92,11 +92,14 @@ public class ProductosActivity extends AppCompatActivity implements LoaderManage
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
                 insertData();
-
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
                 showDeleteAllConfirmationDialog();
+                return true;
+            case R.id.action_display_ventas:
+                Intent intent = new Intent(ProductosActivity.this,VentasActivity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -159,10 +162,10 @@ public class ProductosActivity extends AppCompatActivity implements LoaderManage
                 ProductosEntry.COLUMN_PRODUCTO_NOMBRE,
                 ProductosEntry.COLUMN_PRODUCTO_CANTIDAD,
                 ProductosEntry.COLUMN_PRODUCTO_PROVEDOR,
-                ProductosEntry.COLUMN_PRODUCTO_PRECIO,
-                ProductosEntry.COLUMN_PRODUCTO_PEDIDO_PENDIENTE
+                ProductosEntry.COLUMN_PRODUCTO_PRECIO
         };
-        return new CursorLoader(this,ProductosEntry.CONTENT_URI,projection,null,null,null);
+        return new CursorLoader(this,ProductosEntry.CONTENT_URI,projection,
+                null,null,null);
     }
 
     @Override

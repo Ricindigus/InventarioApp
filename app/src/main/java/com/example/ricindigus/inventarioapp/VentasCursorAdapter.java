@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import com.example.ricindigus.inventarioapp.data.InventarioContract;
+import com.example.ricindigus.inventarioapp.data.InventarioContract.VentasEntry;
 
 public class VentasCursorAdapter extends CursorAdapter {
 
@@ -18,7 +18,7 @@ public class VentasCursorAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View view = LayoutInflater.from(context).inflate(R.layout.producto_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.venta_item,parent,false);
         return view;
     }
 
@@ -26,9 +26,16 @@ public class VentasCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView txtNombre = view.findViewById(R.id.nombre);
         TextView txtCantidad = view.findViewById(R.id.cantidad);
+        TextView txtMontoPagado = view.findViewById(R.id.monto);
+        TextView txtFecha = view.findViewById(R.id.fecha);
 
-        txtNombre.setText(cursor.getString(cursor.getColumnIndex(InventarioContract.ProductosEntry.COLUMN_PRODUCTO_NOMBRE)));
-        int cantidad = cursor.getInt(cursor.getColumnIndex(InventarioContract.ProductosEntry.COLUMN_PRODUCTO_CANTIDAD));
-        txtCantidad.setText(String.valueOf(cantidad));
+
+
+        txtNombre.setText(cursor.getString(cursor.getColumnIndex(VentasEntry.COLUMN_VENTA_NOMBRE_PRODUCTO)));
+        txtFecha.setText("Fecha de compra: " + cursor.getString(cursor.getColumnIndex(VentasEntry.COLUMN_VENTA_FECHA)));
+        int cantidad = cursor.getInt(cursor.getColumnIndex(VentasEntry.COLUMN_VENTA_CANTIDAD));
+        txtCantidad.setText("Catidad comprada:" + String.valueOf(cantidad));
+        int montoPagado = cursor.getInt(cursor.getColumnIndex(VentasEntry.COLUMN_VENTA_MONTO_PAGADO));
+        txtMontoPagado.setText("Monto pagado: S/." + String.valueOf(montoPagado)+".00");
     }
 }

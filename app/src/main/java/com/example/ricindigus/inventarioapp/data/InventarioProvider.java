@@ -120,13 +120,6 @@ public class InventarioProvider extends ContentProvider {
             throw new IllegalArgumentException("Se requiere correo provedor");
         }
 
-        // Verifica el estado pedido_pendiente valido
-        Integer pedido_pendiente = values.getAsInteger(ProductosEntry.COLUMN_PRODUCTO_PEDIDO_PENDIENTE);
-
-        if (pedido_pendiente!=null && !isValidState(pedido_pendiente)) {
-            throw new IllegalArgumentException("Se requiere un estado valido");
-        }
-
         SQLiteDatabase database = inventarioDbHelper.getReadableDatabase();
         long id = database.insert(ProductosEntry.TABLE_NAME,null,values);
         // Once we know the ID of the new row in the table,
@@ -155,12 +148,17 @@ public class InventarioProvider extends ContentProvider {
             throw new IllegalArgumentException("Se requiere indicar la cantidad");
         }
 
+        // Verifica cantidad no cero
+        Integer montoPagado = values.getAsInteger(VentasEntry.COLUMN_VENTA_MONTO_PAGADO);
+        if (montoPagado != null && montoPagado <= 0) {
+            throw new IllegalArgumentException("Se requiere indicar el monto pagado");
+        }
+
         // Verifica el provedor no nulo
         Integer dni = values.getAsInteger(VentasEntry.COLUMN_VENTA_DNI);
         if (dni == null || (dni!=null && dni < 10000000)) {
             throw new IllegalArgumentException("DNI INCORRECTO");
         }
-
 
         SQLiteDatabase database = inventarioDbHelper.getReadableDatabase();
         long id = database.insert(VentasEntry.TABLE_NAME,null,values);
@@ -172,14 +170,6 @@ public class InventarioProvider extends ContentProvider {
 
         return ContentUris.withAppendedId(uri, id);
     }
-
-    private boolean isValidState(int state){
-        if (state == 0 || state==1){
-            return true;
-        }
-        return false;
-    }
-
 
     @Override
     public String getType(Uri uri) {
@@ -262,14 +252,6 @@ public class InventarioProvider extends ContentProvider {
             }
         }
 
-        if (values.containsKey(ProductosEntry.COLUMN_PRODUCTO_PEDIDO_PENDIENTE)){
-            // Verifica el estado pedido_pendiente valido
-            Integer pedido_pendiente = values.getAsInteger(ProductosEntry.COLUMN_PRODUCTO_PEDIDO_PENDIENTE);
-
-            if (pedido_pendiente!=null && !isValidState(pedido_pendiente)) {
-                throw new IllegalArgumentException("Se requiere un estado valido");
-            }
-        }
 
         SQLiteDatabase sqLiteDatabase = inventarioDbHelper.getWritableDatabase();
         int rowsAffected = sqLiteDatabase.update(ProductosEntry.TABLE_NAME,values,selection,selectionArgs);

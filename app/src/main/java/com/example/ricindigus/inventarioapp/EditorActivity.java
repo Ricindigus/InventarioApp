@@ -263,8 +263,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 ProductosEntry.COLUMN_PRODUCTO_NOMBRE,
                 ProductosEntry.COLUMN_PRODUCTO_CANTIDAD,
                 ProductosEntry.COLUMN_PRODUCTO_PROVEDOR,
-                ProductosEntry.COLUMN_PRODUCTO_PRECIO,
-                ProductosEntry.COLUMN_PRODUCTO_PEDIDO_PENDIENTE
+                ProductosEntry.COLUMN_PRODUCTO_PRECIO
         };
         return new CursorLoader(this,contentUri,projection,null,null,null);
     }

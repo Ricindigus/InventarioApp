@@ -36,7 +36,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProductosActivity" />
         </activity>
-        <activity android:name=".VentasActivity"></activity>
+        <activity android:name=".VentasActivity"
+            android:parentActivityName=".ProductosActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProductosActivity" />
+        </activity>
     </application>
 
 </manifest>

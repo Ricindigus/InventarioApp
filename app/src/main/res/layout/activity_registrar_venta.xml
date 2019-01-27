@@ -74,11 +74,12 @@
         android:orientation="horizontal">
         <!-- Label -->
         <TextView
-            android:text="Precio"
+            android:text="Monto"
             style="@style/CategoryStyle" />
         <!-- Name field -->
         <TextView
-            android:id="@+id/txtPrecio"
+            android:id="@+id/txtMontoPagado"
+            android:text="0"
             style="@style/EditorFieldStyle" />
     </LinearLayout>
     <Button
