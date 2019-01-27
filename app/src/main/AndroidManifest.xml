@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ricindigus.inventarioapp">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/inventory"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/inventory"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".ProductosActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".EditorActivity"
+            android:parentActivityName=".ProductosActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProductosActivity" />
+        </activity>
+
+        <provider
+            android:name=".data.InventarioProvider"
+            android:authorities="com.example.ricindigus.inventarioapp"
+            android:exported="false" />
+
+        <activity
+            android:name=".RegistrarVentaActivity"
+            android:parentActivityName=".ProductosActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProductosActivity" />
+        </activity>
+        <activity android:name=".VentasActivity"></activity>
+    </application>
+
+</manifest>
